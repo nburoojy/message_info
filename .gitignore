@@ -1,0 +1,6 @@
+flaskr.db
+.eggs/
+*__pycache__*
+venv/
+*.egg-info/
+*.swp
