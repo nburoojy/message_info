@@ -6,11 +6,11 @@ from .scraper import scraper
 
 app = Flask(__name__)
 
-@app.route('/', methods=['POST'])
-def parse():
-  message = request.values['message']
 
+def parse_message(message):
+  """Scans a chat message for entities and returns them in a dict."""
   response = {}
+
   mentions = regex_parser.find_mentions(message)
   emoticons = regex_parser.find_emoticons(message)
   links = scraper.get_titles(link_parser.find_links(message))
@@ -24,6 +24,12 @@ def parse():
   if links:
     response['links'] = links
 
+  return response
+
+@app.route('/', methods=['POST'])
+def parse():
+  message = request.values['message']
+  response = parse_message(message)
   return jsonify(response)
 
 if __name__ == "__main__":

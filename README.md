@@ -31,6 +31,7 @@ Since the input format wasn't fully specified, I chose to use a field in a form 
 `http -f post 127.0.0.1:5000/ message="test mention @foo"`
 
 ### Test
+`pip install pytest`
 `py.test tests/`
 
 ## Todo
