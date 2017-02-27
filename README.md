@@ -49,4 +49,5 @@ If I had more time to work on this, I would make these improvements.
   * How to solve the punctuation at the end of the URL issue (as [tested](https://github.com/nburoojy/message_info/blob/master/tests/parser/test_link_parser.py#L26))
 * Monitoring: At a minimum, I would want metrics about requests/second, error rates, response latency, CPU and memory usage.
 * Alerting on those metrics
+* I've been able to trigger an issue that looks like [this](https://github.com/kennethreitz/requests/issues/3752) with python 3.6 via the grequests library.
 * Logging

@@ -23,23 +23,26 @@
     improved with 1) cacheing urls 2) streaming content and stopping when the
     title is discovered 3) use parallelization to avoid the 1 cpu bottleneck.
 """
-from lxml import html
+from lxml import html as lxml_html
+import html
 import grequests
 
+
+TIMEOUT=5.0
 
 def get_title(url, http_response):
   result = { 'url': url }
   if http_response and http_response.content:
     html_string = http_response.content
-    tree = html.fromstring(html_string)
+    tree = lxml_html.fromstring(html_string)
     title = tree.find(".//title").text
     if title:
-      result['title'] = title
+      result['title'] = html.escape(title)
 
   return result
 
 def get_titles(urls):
   requests = (grequests.get(u) for u in urls)
-  responses = grequests.map(requests)
+  responses = grequests.map(requests, gtimeout=TIMEOUT)
   
   return [get_title(url, response) for url, response in zip(urls, responses)]
